@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Engagement of Yunandra & Salima</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --soft-pink: #ffb7b2;
+            --rose-gold: #b76e79;
+            --ivory: #fdfbf7;
+            --ivory-dark: #f5efe6;
+            --text-dark: #4a3b32;
+            --text-muted: #8a7366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--ivory);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Ctext y='30' x='10' font-size='20'%3E🌸%3C/text%3E%3C/svg%3E");
+            background-size: 50px 50px;
+            opacity: 0.25;
+        }
+
+        .cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(135deg, #fff5f5 0%, var(--ivory) 100%);
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+            padding: 20px;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            width: 88%;
+            max-width: 420px;
+            height: 88vh;
+            border: 2px dashed rgba(183, 110, 121, 0.3);
+            border-radius: 200px 200px 30px 30px;
+            pointer-events: none;
+            z-index: 101;
+        }
+
+        .cover.hide {
+            transform: translateY(-100vh);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .kids-badge {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.3rem;
+            color: var(--rose-gold);
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            z-index: 102;
+        }
+
+        .cover h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin: 10px 0 20px 0;
+            z-index: 102;
+        }
+
+        .guest-box {
+            z-index: 102;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 15px 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(183, 110, 121, 0.2);
+            min-width: 250px;
+        }
+        .guest-box p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .guest-box h2 {
+            font-size: 1.15rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            background: var(--rose-gold);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(183, 110, 121, 0.3);
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            z-index: 102;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background: #a25f50;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 5;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 25px 15px;
+            display: none;
+            opacity: 0;
+        }
+
+        .main-content.show-layout {
+            display: block;
+            opacity: 1;
+        }
+
+        .arch-container {
+            background-color: rgba(255, 255, 255, 0.96);
+            border-radius: 200px 200px 40px 40px;
+            padding: 60px 25px 40px 25px;
+            box-shadow: 0 15px 40px rgba(183, 110, 121, 0.15);
+            border: 3px solid var(--soft-pink);
+        }
+
+        section {
+            padding: 30px 0;
+            border-bottom: 1px dashed var(--soft-pink);
+            opacity: 0;
+            transform: scale(0.6) translateY(50px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        section.popup-reveal {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        section#rsvp {
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+            border-bottom: none;
+        }
+
+        .engagement-badge {
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            letter-spacing: 1.5px; 
+            color: var(--rose-gold); 
+            margin-bottom: 8px;
+        }
+
+        .mempelai-flex {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .foto-frame {
+            width: 160px;
+            height: 220px;
+            border-radius: 100px 100px 20px 20px;
+            border: 4px solid var(--soft-pink);
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .foto-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nama-mempelai {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            color: var(--rose-gold);
+            margin-top: 10px;
+        }
+
+        .nama-mempelai.warna-cokelat {
+            color: var(--text-dark);
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0 10px 0;
+        }
+
+        .countdown-box {
+            background: var(--soft-pink);
+            padding: 10px;
+            border-radius: 12px;
+            min-width: 70px;
+            color: var(--text-dark);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        .countdown-number {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        .info-card {
+            background: #fff5f5;
+            border-radius: 25px;
+            padding: 30px 20px;
+            margin: 20px 0;
+            border: 1px solid var(--soft-pink);
+        }
+
+        .jam-display {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 15px 0;
+            color: var(--rose-gold);
+        }
+
+        .dresscode-box {
+            background: var(--ivory-dark);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .dress-grid {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--soft-pink);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+        }
+        .gallery-item.wide img {
+            height: 200px;
+        }
+
+        .rsvp-form {
+            background: #fff;
+            border: 2px solid var(--soft-pink);
+            border-radius: 20px;
+            padding: 25px 20px;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--soft-pink);
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--ivory);
+            outline: none;
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--rose-gold);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none;
+        }
+        
+        #success-msg {
+            display: none;
+            background: #f0fff4;
+            border: 1px solid #c6f6d5;
+            color: #22543d;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .txt-terimakasih {
+            font-family: 'Fredoka', sans-serif; 
+            font-size: 1.8rem; 
+            color: var(--text-dark); 
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-pattern"></div>
+
+    <audio id="bg-music" loop>
+        <source src="https://files.catbox.moe/vz9suv.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="music-control" id="music-btn" onclick="toggleMusic()">🎵</div>
+
+    <div class="cover" id="cover">
+        <div class="kids-badge">These kids are engaged!</div>
+        <h1>Yunandra & Salima</h1>
+        
+        <div class="guest-box">
+            <p>Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+            <h2 id="guest-name">Tamu Undangan</h2>
+        </div>
+
+        <button class="btn" onclick="openInvitation()">Buka Undangan</button>
+    </div>
+
+    <div class="main-content" id="main-content">
+        <div class="arch-container">
+            
+            <section id="mempelai">
+                <p class="engagement-badge">THE ENGAGEMENT DAY</p>
+                <p style="font-size: 0.85rem; font-style: italic; color: var(--text-muted); line-height: 1.6; padding: 0 10px;">
+                    Dengan memohon rahmat Allah SWT, kami mengundang Bapak/Ibu/Saudara/i sekalian untuk menyaksikan momen awal langkah penyatuan dua keluarga kami.
+                </p>
+                <div class="mempelai-flex">
+                    <div>
+                        <div class="foto-frame">
+                            <img src="https://files.catbox.moe/9belzu.jpg" alt="Yunandra">
+                        </div>
+                        <h2 class="nama-mempelai warna-cokelat">Yunandra Raspati</h2>
+                    </div>
+                    
+                    <div style="font-family: 'Fredoka'; font-size: 1.8rem; color: var(--soft-pink); font-weight: 600;">&</div>
+                    
+                    <div>
+                        <div class="foto-frame">
+                            <img src="https://images.weserv.nl/?url=https://files.catbox.moe/ev5n8l.heic" alt="Salima">
+                        </div>
+                        <h2 class="nama-mempelai">Anisa Muharrani Salima</h2>
+                    </div>
+                </div>
+            </section>
+
+            <section id="countdown">
+                <p style="font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; color: var(--text-muted);">MENGHITUNG HARI</p>
+                <div class="countdown-container">
+                    <div class="countdown-box"><span class="countdown-number" id="days">00</span><span class="countdown-label">Hari</span></div>
+                    <div class="countdown-box"><span class="countdown-number" id="hours">00</span><span class="countdown-label">Jam</span></div>
+                    <div class="countdown-box"><span class="countdown-number" id="minutes">00</span><span class="countdown-label">Menit</span></div>
+                    <div class="countdown-box"><span class="countdown-number" id="seconds">00</span><span class="countdown-label">Detik</span></div>
+                </div>
+            </section>
+
+            <section id="acara">
+                <div class="info-card">
+                    <h3 style="font-family: 'Fredoka', sans-serif; color: var(--text-dark); font-size: 1.3rem;">Momen Kebahagiaan</h3>
+                    <p style="font-family: 'Fredoka'; font-size: 1.6rem; color: var(--rose-gold); margin-top: 10px;">Sabtu, 8 Agustus 2026</p>
+                    <p class="jam-display">⏰ Pukul 11.00 - 14.00 WIB</p>
+                    <p style="font-weight: 600; font-size: 0.95rem; margin-top: 15px; margin-bottom: 20px;">📍 Garden by the Joglo</p>
+                    
+                    <a href="https://maps.google.com/?q=Garden+by+the+Joglo" target="_blank" class="btn" style="padding: 14px 30px; font-size: 0.95rem; border-radius: 15px; background-color: #4a3b32; display: block; max-width: 280px; margin: 0 auto;">
+                        🗺️ Buka Rute Google Maps
+                    </a>
+                </div>
+
+                <div class="dresscode-box">
+                    <h4 style="font-family: 'Fredoka', sans-serif; font-size: 1rem; color: var(--rose-gold);">Aturan Pakaian (Dresscode)</h4>
+                    <div class="dress-grid">
+                        <div>
+                            <strong style="color: #4a3b32;">Perempuan:</strong>
+                            <p style="margin-top: 3px; color: #4a3525; font-weight: 600;">🤎 Cokelat Tua</p>
+                        </div>
+                        <div style="border-left: 1px solid #ccc; padding-left: 15px;">
+                            <strong style="color: #4a3b32;">Laki-laki:</strong>
+                            <p style="margin-top: 3px; color: #5c4a3c; font-weight: 600;">👔 Pakaian Batik</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="gallery">
+                <h3 style="font-family: 'Fredoka', sans-serif; font-size: 1.2rem; color: var(--text-dark); letter-spacing: 1px;">Our Gallery</h3>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://files.catbox.moe/a1hw6y.JPG" alt="Gallery 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://files.catbox.moe/l8084o.jpg" alt="Gallery 2">
+                    </div>
+                    <div class="gallery-item wide">
+                        <img src="https://files.catbox.moe/9p04xo.jpg" alt="Gallery 3">
+                    </div>
+                </div>
+            </section>
+
+            <section id="rsvp">
+                <h3 style="font-family: 'Fredoka', sans-serif; font-size: 1.2rem; color: var(--rose-gold);">Konfirmasi Kehadiran</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; line-height: 1.5; padding: 0 10px;">
+                    Kehadiran serta doa restu dari Bapak/Ibu/Saudara/i merupakan kehormatan dan kebahagiaan yang sangat bernilai bagi kami.
+                </p>
+                
+                <form id="rsvp-form-element" action="https://script.google.com/macros/s/AKfycbziqfjCQ5c2kGarZfuU8th1-aOB44dSb2AoFSR5_1HzFuuHPmng5Jl9EVPgcmw54YEQHw/exec" method="POST" target="secret-iframe" class="rsvp-form">
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" name="nama" placeholder="Masukkan nama Bapak/Ibu/Rekan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Konfirmasi</label>
+                        <select id="status" name="status" required>
+                            <option value="Saya Akan Hadir">Saya Akan Hadir</option>
+                            <option value="Maaf, Berhalangan Hadir">Maaf, Berhalangan Hadir</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="submit-rsvp-btn" class="btn" style="width: 100%; border-radius: 10px; margin-top: 5px;">Kirim Konfirmasi</button>
+                </form>
+                
+                <iframe name="secret-iframe" id="secret-iframe" style="display:none;"></iframe>
+                
+                <div id="success-msg">✨ Terima kasih! Konfirmasi kehadiran Anda berhasil disimpan langsung ke database kami.</div>
+            </section>
+
+            <footer style="margin-top: 40px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6;">
+                <p class="txt-terimakasih">Terima Kasih</p>
+                <p>Sampai Jumpa di Hari Bahagia Kami</p>
+                <div style="margin-top: 15px; font-size: 0.75rem; opacity: 0.7;">Made with 🤍 for Yunandra & Salima</div>
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        var myAudio = document.getElementById("bg-music");
+        var musicBtn = document.getElementById("music-btn");
+
+        function dapatkanNamaTamu() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var nama = urlParams.get('to');
+            if (nama) {
+                document.getElementById("guest-name").innerText = decodeURIComponent(nama);
+                document.getElementById("nama").value = decodeURIComponent(nama);
+            }
+        }
+        window.onload = dapatkanNamaTamu;
+
+        function openInvitation() {
+            document.getElementById("cover").classList.add("hide");
+            setTimeout(function() {
+                document.getElementById("cover").style.display = "none";
+            }, 1000);
+            
+            var content = document.getElementById("main-content");
+            content.classList.add("show-layout");
+            
+            setTimeout(handleScrollPopUp, 200);
+            musicBtn.style.display = "flex";
+            
+            myAudio.currentTime = 0; 
+            myAudio.play().catch(function(e) { console.log("Autoplay ditahan browser") });
+        }
+
+        function toggleMusic() {
+            if (myAudio.paused) {
+                myAudio.play();
+                musicBtn.innerText = "🎵";
+            } else {
+                myAudio.pause();
+                musicBtn.innerText = "🔇";
+            }
+        }
+
+        function handleScrollPopUp() {
+            var sections = document.querySelectorAll("section:not(#rsvp)");
+            var triggerBottom = window.innerHeight * 0.85;
+
+            sections.forEach(function(section) {
+                var sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < triggerBottom) {
+                    section.classList.add("popup-reveal");
+                }
+            });
+        }
+
+        window.addEventListener("scroll", handleScrollPopUp);
+
+        document.getElementById("rsvp-form-element").addEventListener("submit", function(e) {
+            var btn = document.getElementById("submit-rsvp-btn");
+            btn.innerText = "Mengirim...";
+            btn.disabled = true;
+
+            setTimeout(function() {
+                document.getElementById("rsvp-form-element").style.display = "none";
+                document.getElementById("success-msg").style.display = "block";
+            }, 1000);
+        });
+
+        var countDownDate = new Date("Aug 8, 2026 11:00:00").getTime();
+        var x = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = countDownDate - now;
+
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerHTML = hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerHTML = minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerHTML = seconds < 10 ? "0" + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("days").innerHTML = "00";
+                document.getElementById("hours").innerHTML = "00";
+                document.getElementById("minutes").innerHTML = "00";
+                document.getElementById("seconds").innerHTML = "00";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
